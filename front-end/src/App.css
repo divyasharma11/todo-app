@@ -1,0 +1,86 @@
+*{
+  padding: 0;
+  margin: 0;
+  font-family:cursive;
+}
+.navbar .MuiAppBar-root{
+  background-color: rgb(196, 119, 146);
+}
+.add-items .MuiTextField-root{
+  border:1px solid pink;
+  border-radius: 5px;
+}
+
+.add-items .MuiButton-root {
+  border:1px solid pink;
+  color: black;
+}
+.add-items .MuiButton-root:hover{
+  background-color: rgb(221, 141, 169);
+  color: #fff;
+  border: none;
+}
+.items .MuiDeleteIcon-root{
+  color: #fff;
+}
+.container{
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20200718/pngtree-school-background-designs-with-colored-pencil-holders-image_356296.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+ height: 100vh;
+}
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  
+}
+.content{
+ width: 25rem;
+  height: 22rem;
+  border: 1px solid rgb(204, 200, 200);
+  padding: 2rem;
+   padding-right: 5rem;
+   background-color:#fff;
+   margin-top: 3rem;
+   overflow-y: scroll;
+}
+.add-items{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 1rem;
+     
+}
+
+.item-list{
+  display:flex;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  background-color: rgb(252, 234, 237);
+  border: 2px solid rgb(247, 209, 215) ;
+  box-shadow: 2px 2px rgba(0,0,0,0.1);
+  margin: 10px;
+  padding: 5px 6px;
+  margin-right: 1rem;
+}
+
+@media (max-width: 768px) {
+
+  .content {
+    width: 70%; /* Make content wider on smaller screens */
+    padding: 1rem; /* Reduce padding for smaller screens */
+    padding-right: 2rem; /* Adjust right padding for smaller screens */
+  }
+  .add-items .MuiTextField-root {
+    margin: 12px;
+  }
+  .add-items .MuiButton-root{
+    margin: 10px;
+  }
+  .items{
+    margin: 20px;
+  
+  }
+}
