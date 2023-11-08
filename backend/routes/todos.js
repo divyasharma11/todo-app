@@ -3,52 +3,62 @@ const router = express.Router();
 const Todo = require("../modals/todo");
 
 router.get("/", async (req, res) => {
-    try {
-        const todos = await Todo.find();
-        res.send(todos);
-    } catch {
-        res.send("Error", err);
-    }
+  try {
+    const todos = await Todo.find();
+    res.send(todos);
+  } catch {
+    res.send("Error", err);
+  }
 });
 
 router.post("/", async (req, res) => {
-    const todos = new Todo({
-        id: req.body.id,
-        item: req.body.item,
-    });
+  const todos = new Todo({
+    id: req.body.id,
+    item: req.body.item,
+  });
 
-    try {
-        const data = await todos.save();
-        res.json(data);
-    } catch {
-        res.send("Error");
-    }
+  try {
+    const data = await todos.save();
+    res.json(data);
+  } catch {
+    res.send("Error");
+  }
 });
 
 router.delete("/:id", async (req, res) => {
-    try {
-        await Todo.deleteOne({ id: req.params.id });
-        res.send("Deleted successfully");
-    } catch {
-        res.send("Delete Error");
-    }
+  try {
+    await Todo.deleteOne({ id: req.params.id });
+    res.send("Deleted successfully");
+  } catch {
+    res.send("Delete Error");
+  }
 });
 
-router.patch("/:id", async (req, res) => {
-    try {
-        const updateDoc = {
-            $set: {
-                item: req.body.item,
-            },
-        };
+//api to delete all
+router.delete("/", async (req, res) => {
+  try {
+    await Todo.deleteMany({});
+    res.send("Deleted All successfully");
+  } catch {
+    res.send("Delete All Error");
+  }
+});
 
-        const options = { upsert: false };
+router.patch("/", async (req, res) => {
+  try {
+    const updateDoc = {
+      $set: {
+        item: req.body.item,
+      },
+    };
 
-        await Todo.updateOne({ id: req.params.id }, updateDoc, options);
-        res.send("Data Updated successfully");
-    } catch {
-        res.send("Update Error");
-    }
+    const options = { upsert: false };
+    
+    await Todo.updateOne({ id: req.body.id }, updateDoc, options);
+    res.send("Data Updated successfully");
+  } catch {
+    res.send("Update Error");
+  }
 });
 
 module.exports = router;

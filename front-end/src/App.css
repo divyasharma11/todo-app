@@ -9,11 +9,13 @@
 .add-items .MuiTextField-root{
   border:1px solid pink;
   border-radius: 5px;
+  height: 3.5rem;
 }
 
 .add-items .MuiButton-root {
   border:1px solid pink;
   color: black;
+  margin-left:10px;
 }
 .add-items .MuiButton-root:hover{
   background-color: rgb(221, 141, 169);
@@ -46,11 +48,25 @@ main{
    margin-top: 3rem;
    overflow-y: scroll;
 }
+.btn button{
+  width: 100%;
+display: flex;
+justify-content: center;
+  cursor: pointer;
+  background-color:rgb(218, 155, 155) ;
+  color: white;
+  border: none;
+  padding: 10px;
+ box-shadow: 3px 4px 3px rgb(189, 187, 187);
+font-size: 15px;
+margin:1rem;
+}
+
+
 .add-items{
   display: flex;
   justify-content: space-between;
   margin-left: 1rem;
-     
 }
 
 .item-list{

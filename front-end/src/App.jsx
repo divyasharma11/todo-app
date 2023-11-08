@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   AppBar,
@@ -13,9 +14,11 @@ import {
 } from "@mui/material";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [getData, setGetData] = useState(0);
   const [inputText, setInputText] = useState("");
+  const [edit, setEdit] = useState(false);
+  const [editId, setEditId] = useState("");
   useEffect(() => {
     fetchData();
   }, [getData]);
@@ -70,6 +73,50 @@ function App() {
       });
   };
 
+  const deleteAll = () => {
+    const apiUrl = "http://localhost:3005/todos";
+    console.log("delete");
+    axios
+      .delete(apiUrl)
+      .then(() => {
+        console.log("All Todos deleted successfully");
+        setGetData(getData + 1);
+      })
+      .catch((error) => {
+        console.error("Error deleting todo:", error);
+      });
+  };
+  const handleEdit = (item,id) => {
+    setInputText(item);
+    setEdit(true);
+    setEditId(id)
+    // const apiUrl = `http://localhost:3005/todos/${id}`;
+    // axios
+    //   .patch(apiUrl)
+    //   .then(() => {
+    //      setGetData(getData+1);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error updating todo:", error);
+    //   });
+  };
+  const editTodo=()=>{
+    const apiUrl = `http://localhost:3005/todos`;
+    const data = {
+      id: editId,
+      item: inputText,
+    };
+    axios
+      .patch(apiUrl,data)
+      .then(() => {
+         setGetData(getData+1);
+      })
+      .catch((error) => {
+        console.error("Error updating todo:", error);
+      });
+      setEdit(false);
+      setInputText("");
+  }
   return (
     <div className="container">
       <nav>
@@ -102,15 +149,27 @@ function App() {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="add todo here.."
             />
-            <Button variant="outlined" onClick={handleClick}>
-              Add todo
-            </Button>
+            {!edit ? (
+              <Button variant="outlined" onClick={handleClick} title="add todo">
+                Add todo
+              </Button>
+            ) : (
+              <Button variant="outlined" onClick={editTodo} title="edit todo">
+                Save
+              </Button>
+            )}
+          </div>
+          <div className="btn">
+            <button onClick={deleteAll} title="Delete All">
+              Delete All
+            </button>
           </div>
           <div className="items">
             {data &&
               data.map((todo) => (
                 <div className="item-list" key={todo._id}>
                   <h2>{todo.item}</h2>
+                  <EditIcon onClick={() => handleEdit(todo.item,todo.id)} />
                   <DeleteIcon
                     style={{ color: " rgb(198, 118, 147)" }}
                     onClick={() => handleDelete(todo.id)}
