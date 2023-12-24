@@ -131,7 +131,7 @@ function App() {
                 sx={{ mr: 2 }}
               ></IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Todo-List
+                Note-Book
               </Typography>
               {/* <Button color="inherit">Login</Button> */}
             </Toolbar>
@@ -143,15 +143,15 @@ function App() {
           <div className="add-items">
             <TextField
               id="outlined-basic"
-              label="add todo"
+              label="add something here"
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="add todo here.."
+              placeholder="add item here.."
             />
             {!edit ? (
               <Button variant="outlined" onClick={handleClick} title="add todo">
-                Add todo
+                Add 
               </Button>
             ) : (
               <Button variant="outlined" onClick={editTodo} title="edit todo">
@@ -169,11 +169,16 @@ function App() {
               data.map((todo) => (
                 <div className="item-list" key={todo._id}>
                   <h2>{todo.item}</h2>
-                  <EditIcon onClick={() => handleEdit(todo.item,todo.id)} />
+                  <div>             
+                  <EditIcon 
+                   style={{ color: "rgb(196, 119, 146)" }}
+                  onClick={() => handleEdit(todo.item,todo.id)}
+                   />
                   <DeleteIcon
                     style={{ color: " rgb(198, 118, 147)" }}
                     onClick={() => handleDelete(todo.id)}
                   />
+                  </div>
                 </div>
               ))}
           </div>
